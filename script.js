@@ -160,6 +160,8 @@ function initHeroStageSwitcher() {
   const tabLogistics = document.getElementById('tab-logistics-view');
   const officeCard = document.getElementById('office-card');
   const logisticsCard = document.getElementById('logistics-card');
+  const statusTitle = document.getElementById('stage-status-title');
+  const statusSub = document.getElementById('stage-status-sub');
 
   if (!tabOffice || !tabLogistics || !officeCard || !logisticsCard) return;
 
@@ -171,6 +173,9 @@ function initHeroStageSwitcher() {
 
     officeCard.classList.add('is-visible');
     logisticsCard.classList.remove('is-visible');
+
+    if (statusTitle) statusTitle.textContent = "Distribusi Aktif";
+    if (statusSub) statusSub.textContent = "Tangsel & Nasional";
   });
 
   tabLogistics.addEventListener('click', () => {
@@ -181,6 +186,9 @@ function initHeroStageSwitcher() {
 
     logisticsCard.classList.add('is-visible');
     officeCard.classList.remove('is-visible');
+
+    if (statusTitle) statusTitle.textContent = "Standar CDAKB";
+    if (statusSub) statusSub.textContent = "Armada & Rantai Dingin";
   });
 }
 
