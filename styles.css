@@ -2668,6 +2668,196 @@ body.menu-open {
   color: white;
 }
 
+.contact-address-card {
+  align-items: flex-start;
+}
+
+.address-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.addr-badge {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #92B9BC;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.btn-maps-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--color-accent-green);
+  background: rgba(125, 187, 66, 0.12);
+  border: 1px solid rgba(125, 187, 66, 0.3);
+  padding: 3px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-maps-link:hover {
+  background: var(--color-accent-green);
+  color: #0A3715;
+}
+
+.btn-maps-link .icon-ext {
+  width: 13px;
+  height: 13px;
+}
+
+/* ==========================================================================
+   Google Maps Interactive Card
+   ========================================================================== */
+.contact-map-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 36px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.map-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 640px) {
+  .map-card-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.map-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.map-status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent-green);
+  box-shadow: 0 0 0 4px rgba(125, 187, 66, 0.25);
+  flex-shrink: 0;
+  animation: pulseDot 2s infinite;
+}
+
+.map-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 2px;
+}
+
+.map-card-sub {
+  font-size: 0.8rem;
+  color: #92B9BC;
+}
+
+.btn-get-directions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0A3715;
+  background: var(--color-accent-green);
+  border: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.btn-get-directions:hover {
+  background: #8fd04f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(125, 187, 66, 0.35);
+}
+
+.btn-get-directions .icon-nav {
+  width: 16px;
+  height: 16px;
+}
+
+.map-iframe-wrapper {
+  width: 100%;
+  height: 360px;
+  position: relative;
+  background: #0e3b3e;
+}
+
+@media (max-width: 640px) {
+  .map-iframe-wrapper {
+    height: 280px;
+  }
+}
+
+.map-iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.map-card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 768px) {
+  .map-card-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.map-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #B5D7D9;
+}
+
+.map-f-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent-green);
+  flex-shrink: 0;
+}
+
+.map-feature strong {
+  color: white;
+  font-weight: 700;
+}
+
 .contact-actions-bar {
   margin-bottom: 80px;
 }
