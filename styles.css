@@ -75,19 +75,11 @@ body {
   left: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+  background-image: 
+    linear-gradient(to right, #e2e8f0 1px, transparent 1px),
     linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
   background-size: 20px 30px;
-  -webkit-mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    #000 60%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    #000 60%,
-    transparent 100%
-  );
+  opacity: 0.7;
 }
 
 /* ==========================================================================
@@ -750,6 +742,21 @@ body.menu-open {
   padding-top: 48px;
   padding-bottom: 72px;
   position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    linear-gradient(to right, rgba(10, 90, 94, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 90, 94, 0.08) 1px, transparent 1px);
+  background-size: 20px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 25%, #000 60%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 25%, #000 60%, transparent 100%);
 }
 
 @media (min-width: 992px) {
@@ -1316,14 +1323,16 @@ body.menu-open {
 .section-legalitas::before {
   content: '';
   position: absolute;
-  top: -20%;
-  left: -10%;
-  width: 550px;
-  height: 550px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(26, 138, 181, 0.09) 0%, transparent 70%);
-  filter: blur(70px);
+  inset: 0;
   pointer-events: none;
+  z-index: 0;
+  background-image: 
+    radial-gradient(circle at 12% 22%, rgba(26, 138, 181, 0.16) 0%, transparent 55%),
+    linear-gradient(to right, rgba(26, 138, 181, 0.18) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 138, 181, 0.18) 1px, transparent 1px);
+  background-size: auto, 20px 30px, 20px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 55%, transparent 100%);
 }
 
 @media (min-width: 992px) {
@@ -1620,8 +1629,24 @@ body.menu-open {
    ========================================================================== */
 .section-cdakb {
   padding: 100px 0;
-  background-color: var(--color-bg-base);
+  background-color: transparent;
   border-bottom: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-cdakb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    linear-gradient(to right, rgba(125, 187, 66, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 90, 94, 0.09) 1px, transparent 1px);
+  background-size: 20px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 60%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 60%, transparent 100%);
 }
 
 .cdakb-grid {
@@ -1844,8 +1869,24 @@ body.menu-open {
    ========================================================================== */
 .section-products {
   padding: 100px 0;
-  background: #F7FAFA;
+  background: transparent;
   border-bottom: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-products::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    linear-gradient(to right, rgba(26, 138, 181, 0.11) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 138, 181, 0.11) 1px, transparent 1px);
+  background-size: 20px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 65%, transparent 100%);
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, #000 65%, transparent 100%);
 }
 
 .products-header {
@@ -1927,7 +1968,9 @@ body.menu-open {
 }
 
 .product-card {
-  background: white;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 22px;
@@ -2394,8 +2437,24 @@ body.menu-open {
    ========================================================================== */
 .section-about {
   padding: 100px 0;
-  background: white;
+  background: transparent;
   border-bottom: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-about::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    linear-gradient(to right, rgba(10, 90, 94, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 90, 94, 0.09) 1px, transparent 1px);
+  background-size: 20px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 60%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 60%, transparent 100%);
 }
 
 .about-grid {
@@ -2566,6 +2625,21 @@ body.menu-open {
   color: white;
   position: relative;
   overflow: hidden;
+}
+
+.section-contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    radial-gradient(circle at 85% 85%, rgba(125, 187, 66, 0.12) 0%, transparent 55%),
+    linear-gradient(to right, rgba(125, 187, 66, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 138, 181, 0.16) 1px, transparent 1px);
+  background-size: auto, 20px 30px, 20px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 40%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 40%, #000 55%, transparent 100%);
 }
 
 .section-contact::after {
