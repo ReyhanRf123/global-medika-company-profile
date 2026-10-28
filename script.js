@@ -101,31 +101,52 @@ function initHeaderScroll() {
  * Navigasi Menu Ponsel
  * ------------------------------------------------------------------------- */
 function initMobileMenu() {
-  const toggleBtn = document.querySelector('.mobile-toggle-btn');
-  const drawer = document.querySelector('.mobile-drawer');
+  const toggleBtn = document.getElementById('mobile-toggle-btn') || document.querySelector('.mobile-toggle-btn');
+  const drawer = document.getElementById('mobile-drawer') || document.querySelector('.mobile-drawer');
+  const backdrop = document.getElementById('drawer-backdrop');
 
   if (!toggleBtn || !drawer) return;
 
+  function openMenu() {
+    toggleBtn.setAttribute('aria-expanded', 'true');
+    toggleBtn.classList.add('is-active');
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    if (backdrop) backdrop.classList.add('is-open');
+    document.body.classList.add('menu-open');
+  }
+
+  function closeMenu() {
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    toggleBtn.classList.remove('is-active');
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    if (backdrop) backdrop.classList.remove('is-open');
+    document.body.classList.remove('menu-open');
+  }
+
   toggleBtn.addEventListener('click', () => {
-    const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-    toggleBtn.setAttribute('aria-expanded', !isExpanded);
-    toggleBtn.classList.toggle('is-active');
-    drawer.classList.toggle('is-open');
+    const isOpen = drawer.classList.contains('is-open');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   });
+
+  if (backdrop) {
+    backdrop.addEventListener('click', closeMenu);
+  }
 
   drawer.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      toggleBtn.classList.remove('is-active');
-      toggleBtn.setAttribute('aria-expanded', 'false');
-      drawer.classList.remove('is-open');
+      closeMenu();
     });
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
-      toggleBtn.classList.remove('is-active');
-      toggleBtn.setAttribute('aria-expanded', 'false');
-      drawer.classList.remove('is-open');
+      closeMenu();
     }
   });
 }
@@ -347,11 +368,13 @@ function initQuoteDrawer() {
       const chip = document.createElement('span');
       chip.className = 'selected-chip';
       chip.innerHTML = `
-        <span>${item}</span>
+        <span title="${item}">${item}</span>
         <button type="button" class="chip-remove" aria-label="Hapus ${item}" title="Hapus">×</button>
       `;
 
-      chip.querySelector('.chip-remove').addEventListener('click', () => {
+      chip.querySelector('.chip-remove').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         removeItemFromQuote(item);
       });
 
@@ -389,17 +412,22 @@ function initQuoteDrawer() {
 
     renderChips();
 
+    if (clearBtn) {
+      clearBtn.style.display = count > 0 ? 'inline-flex' : 'none';
+    }
+
     if (floatingDock) {
       if (count > 0) {
         floatingDock.hidden = false;
+        void floatingDock.offsetWidth;
         floatingDock.classList.add('is-visible');
         if (dockBadgeNum) dockBadgeNum.textContent = count;
-        if (dockStatusText) dockStatusText.textContent = `${count} alat di daftar penawaran`;
+        if (dockStatusText) dockStatusText.textContent = `${count} alat dipilih`;
       } else {
         floatingDock.classList.remove('is-visible');
         setTimeout(() => {
           if (selectedQuoteItems.length === 0) floatingDock.hidden = true;
-        }, 400);
+        }, 350);
       }
     }
 
@@ -409,7 +437,7 @@ function initQuoteDrawer() {
       const msg = encodeURIComponent("Halo PT Global Medika Indonesia, saya ingin meminta katalog dan informasi penawaran alat kesehatan.");
       waUrl = `https://wa.me/${OFFICIAL_PHONE}?text=${msg}`;
     } else {
-      if (statusText) statusText.innerHTML = `<strong>${count} alat</strong> di daftar penawaran`;
+      if (statusText) statusText.innerHTML = `<strong>${count} alat medis dipilih</strong> &middot; Siap diajukan ke WhatsApp`;
       
       const itemsList = selectedQuoteItems.map(item => `• ${item}`).join('\n');
       
@@ -426,6 +454,22 @@ function initQuoteDrawer() {
     if (waSubmitBtn) waSubmitBtn.href = waUrl;
     if (dockWaBtn) dockWaBtn.href = waUrl;
   }
+
+  // Smooth scroll and pulse highlight when clicking cart shortcut or view list
+  const jumpButtons = [document.getElementById('nav-cart-btn'), document.querySelector('.dock-btn-view')].filter(Boolean);
+  jumpButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const quoteBar = document.getElementById('quote-drawer-bar');
+      if (quoteBar) {
+        e.preventDefault();
+        quoteBar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        quoteBar.classList.remove('is-focused-pulse');
+        void quoteBar.offsetWidth;
+        quoteBar.classList.add('is-focused-pulse');
+        setTimeout(() => quoteBar.classList.remove('is-focused-pulse'), 1300);
+      }
+    });
+  });
 
   addButtons.forEach(btn => {
     btn.addEventListener('click', () => {
