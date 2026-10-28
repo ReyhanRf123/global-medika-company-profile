@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initSmoothScroll();
   initHeroStageSwitcher();
+  initRuko3DHover();
   initLegalChain();
   initDocStepper();
   initCopyButtons();
@@ -181,6 +182,80 @@ function initHeroStageSwitcher() {
     logisticsCard.classList.add('is-visible');
     officeCard.classList.remove('is-visible');
   });
+}
+
+/* -------------------------------------------------------------------------
+ * Interaktivitas Ruko 3D & Parallax Tilt Hover
+ * ------------------------------------------------------------------------- */
+function initRuko3DHover() {
+  const frame = document.querySelector('.office-visual-frame');
+  const wrapper = document.querySelector('.office-photo-wrapper');
+  if (!frame || !wrapper) return;
+
+  const floor2Group = document.getElementById('group-floor-2');
+  const floor1Group = document.getElementById('group-floor-1');
+  const pinFloor2 = document.querySelector('.pin-floor-2');
+  const pinFloor1 = document.querySelector('.pin-floor-1');
+
+  // Interactive 3D Parallax Tilt with Glare effect
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    frame.addEventListener('mousemove', (e) => {
+      const rect = frame.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const xPct = (x / rect.width - 0.5) * 2; // -1 to 1
+      const yPct = (y / rect.height - 0.5) * 2; // -1 to 1
+
+      const tiltX = -yPct * 6.5; // max 6.5 deg
+      const tiltY = xPct * 8.5;  // max 8.5 deg
+
+      wrapper.style.setProperty('--tilt-x', `${tiltX.toFixed(2)}deg`);
+      wrapper.style.setProperty('--tilt-y', `${tiltY.toFixed(2)}deg`);
+      frame.style.setProperty('--glare-x', `${(x / rect.width * 100).toFixed(1)}%`);
+      frame.style.setProperty('--glare-y', `${(y / rect.height * 100).toFixed(1)}%`);
+    });
+
+    frame.addEventListener('mouseleave', () => {
+      wrapper.style.setProperty('--tilt-x', '0deg');
+      wrapper.style.setProperty('--tilt-y', '0deg');
+    });
+  }
+
+  // Bidirectional hover between Floor SVG and Hotspot Pins
+  function bindHover(svgGroup, pin) {
+    if (!svgGroup || !pin) return;
+    
+    svgGroup.addEventListener('mouseenter', () => {
+      svgGroup.classList.add('is-hovered');
+      pin.classList.add('is-active');
+      const tooltip = pin.querySelector('.pin-tooltip');
+      if (tooltip) {
+        tooltip.style.opacity = '1';
+        tooltip.style.transform = 'translateX(-50%) translateY(0)';
+      }
+    });
+
+    svgGroup.addEventListener('mouseleave', () => {
+      svgGroup.classList.remove('is-hovered');
+      pin.classList.remove('is-active');
+      const tooltip = pin.querySelector('.pin-tooltip');
+      if (tooltip) {
+        tooltip.style.opacity = '';
+        tooltip.style.transform = '';
+      }
+    });
+
+    pin.addEventListener('mouseenter', () => {
+      svgGroup.classList.add('is-hovered');
+    });
+
+    pin.addEventListener('mouseleave', () => {
+      svgGroup.classList.remove('is-hovered');
+    });
+  }
+
+  bindHover(floor2Group, pinFloor2);
+  bindHover(floor1Group, pinFloor1);
 }
 
 /* -------------------------------------------------------------------------
